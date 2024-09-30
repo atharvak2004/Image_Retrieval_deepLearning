@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="logo.jpg">
+    <title>Image Retrieval Project</title>
+    <link rel="stylesheet" href="static/css/style.css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <h1>Image Retrieval Using Deep Learning</h1>
+        <a href="about" onclick="openAboutUs()">About Us</a>
+        <a href="contact" onclick="openAboutUs()">Contact Us</a>
+    </header>
+
+    <!-- Main Content Section -->
+    <div class="container main-content">
+        <div class="left-section">
+            <!-- Image Upload Form -->
+            <h2> Image Search Engine</h2>
+            <form method="POST" enctype="multipart/form-data">
+                <input type="file" name="query_img" accept="image/*">
+                <br>
+                <input type="submit" value="Search">
+            </form>
+
+            <!-- Display Uploaded Image -->
+            <h2>Query:</h2>
+            {% if query_path %}
+            <img src="{{ query_path }}" width="300px">
+            {% endif %}
+        </div>
+
+        <!-- Right Section: Results and History -->
+        <div class="right-section">
+            <!-- Results Section -->
+            <div class="results">
+                <h2>Similar Images</h2>
+                <div id="similarImages">
+                    {% for score in scores %}
+                    <figure style="float: left; margin-right: 20px; margin-bottom: 20px;">
+                        <img src="{{ score[1] }}" height="200px">
+                        <figcaption>Distance: {{ score[0] }}</figcaption>
+                    </figure>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Search History Section -->
+            <section class="history">
+                <h2>Search History</h2>
+                <ul id="historyList">
+                </ul>
+            </section>
+        </div>
+    </div>
+
+    <script src="static/js/app.js"></script>
+
+</body>
+</html>
